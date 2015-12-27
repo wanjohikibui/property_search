@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load django_markdown %}
+<script type="text/css">
+div {
+    border: 10px solid #000000;
+}
+</script>
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %}
+<div class="container" style="background-color: #FEFCFF;">
+<div class="row-fluid">
+	<form class="navbar-form navbar-right" action="." method="get" style="float: right;">
+        		<input id="search_box" name="search_box" type="text" placeholder="Search crops" class="form-control">
+        		<button type="submit" class="btn btn-primary btn-large">{% bootstrap_icon "search" %} Search</button>
+        	</form>
+	<div class="span8">
+        	
+        	<br>
+        	<br>
+        	<br>
+        	<h3>List of parcels</h3>
+        	
+        	<p><i>Search parcels by entering LR number in the search box</i></p>
+
+        	<h4>{{ parcels|length }} parcels (s) on this page</h4>
+        	<h4>{{ parcels.get_crops_count}}</h4>
+        	<hr>
+        	<ul class="list-group">
+			{% for parcel in parcels.object_list %}								
+						<ul class="list-group">
+						  <li class="list-group-item">
+						  <h4><a href="{% url "parcel_detail" slug=parcel.slug %}">{{ parcel.lr_number }}</a></h4>
+						  
+						  </li>
+						</ul>
+			{% empty %}
+      		<i><p><h3> No parcels available </p>	</h3></i>		
+			{% endfor %}
+			</ul>
+			<hr>
+			<div class="pagination" style="align: center;">
+			    <span class="step-links">
+			        {% if parcels.has_previous %}
+			            <h5><a href="?page={{ parcels.previous_page_number }}">Previous Page</a></h5>
+			        {% endif %}
+			        <span class="current">
+			            <h5> Page {{ parcels.number }} of {{ parcels.paginator.num_pages }}.</h5>
+			        </span>
+			        {% if parcels.has_next %}
+			            <h5><a href="?page={{parcels.next_page_number }}">Next Page</a></h5>
+			        {% endif %}
+			    </span>
+			</div>
+		
+	</div>
+	<br>
+	
+</div>
+</div>
+{% endblock %}

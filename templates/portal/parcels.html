@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load django_markdown %}
+{% block content %}
+<div class="container">
+<div class="row-fluid"> 
+        <div class="span8" style="height: 620px;">
+	        <div class="col-sm-8 blog-main">			
+				  <div class="post">
+				    <h2><a href="{% url "parcel_detail" slug=object.slug %}">Results for {{ object.lr_number }}</a></h2>
+				    The parcel is registered to <strong>{{ object.registered_to|markdown }}</strong>
+				   <h3>Detailed Information</h3><br>
+				   <p>Parcel Size : {{object.area}}</p>
+				   <p>Date Registered: {{object.date_registered}}</p>
+				   <p>Registered Landuse : {{object.registered_landuse}}</p>
+				   <p>Brokers : {{object.brokers}}</p>
+				   <p>Brokers Name: {{object.brokers_name}}</p>
+				   <p>Charged : {{object.charged}}</p>
+				   <p>Caveat : {{object.caveat}}</p>
+				   <p>Loan : {{object.loan}}</p>
+				   <p>Court Order : {{object.courtorder}}</p>
+				   <p>Time Searched : {{object.timestamp}}</p>		    
+				  </div>
+				  <a class="btn btn-large btn-primary" href="{% url "search" %}">Back to crop list</a>
+				
+			</div>
+		</div>
+	
+</div>
+</div>
+{% endblock %}
